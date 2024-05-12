@@ -17,6 +17,7 @@
             background-image: url('https://i.imgur.com/31yEGKO.gif');
             background-size: cover;
             color: #00ff00; /* Adjusted text color */
+            position: relative; /* Position relative to allow absolute positioning */
         }
 
         .container {
@@ -26,6 +27,7 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             background-color: rgba(0, 0, 0, 0.7);
             animation: slide-up 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative; /* Position relative to allow absolute positioning */
         }
 
         @keyframes slide-up {
@@ -74,8 +76,24 @@
             background-color: #45a049;
         }
 
-        .button:last-child {
-            margin-right: 0;
+        /* Music Player Styles */
+        .music-player {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .music-player audio {
+            width: 200px;
+            display: block;
+            background-color: #000;
+            border-radius: 5px;
+        }
+
+        .music-title {
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -87,6 +105,15 @@
             <a href="https://t.me/JustVeryClassy" target="_blank">My Telegram</a>
             <a href="https://JoyHQ.org" target="_blank">JoyHQ</a>
         </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <audio controls>
+            <source src="again - lieu.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="music-title">Now Playing: Song Title</div>
     </div>
 </body>
 </html>
