@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bas's Custom Bio</title>
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Initial Click-to-Enter Screen */
+        .welcome-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Main Page After Enter */
+        .main-content {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Background Video or Image */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Overlay Content */
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.6); /* Slight overlay for better readability */
+        }
+
+        .title {
+            font-size: 72px;
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .description {
+            font-size: 24px;
+            margin: 10px 0 20px;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 25px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: bold;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: white;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .music-player div {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* View Counter */
+        .view-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .view-counter img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" onclick="startSite()">
+        Click to enter
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <video class="background" autoplay loop muted>
+            <source src="background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        
+        <div class="content">
+            <h1 class="title">Bas</h1>
+            <p class="description">Owner of /Christmas<br>MC IGN: Joziq</p>
+            <div class="social-links">
+                <a href="https://t.me/ignJoziq" target="_blank">My Telegram</a>
+                <a href="https://discord.gg/Christmas" target="_blank">My Discord Server</a>
+            </div>
+        </div>
+        
+        
+        <div class="music-player">
+            <div>Now Playing: Juice WRLD - Summer is over</div>
+        </div>
+
+        
+        <div class="view-counter">
+            <img src="eye.png" alt="Eye Icon">
+            <span id="view-count">0</span>
+        </div>
+        
+       
+        <audio id="background-music" loop>
+            <source src="summer-is-over.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        function startSite() {
+            const welcomeScreen = document.querySelector('.welcome-screen');
+            const mainContent = document.querySelector('.main-content');
+
+            
+            welcomeScreen.classList.add('hidden');
+
+            
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+
+                
+                const music = document.getElementById('background-music');
+                music.play().catch(error => console.log('Autoplay blocked:', error));
+            }, 500); 
+
+            
+            incrementViewCount();
+        }
+
+        function incrementViewCount() {
+            const countElement = document.getElementById('view-count');
+            const currentCount = parseInt(localStorage.getItem('viewCount') || '0', 10);
+            const newCount = currentCount + 1;
+            localStorage.setItem('viewCount', newCount);
+            countElement.textContent = newCount;
+        }
+
+        // Load view count on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const countElement = document.getElementById('view-count');
+            const storedCount = localStorage.getItem('viewCount') || '0';
+            countElement.textContent = storedCount;
+        });
+    </script>
+</body>
+</html>
