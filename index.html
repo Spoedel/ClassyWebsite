@@ -71,13 +71,13 @@
         }
 
         .title {
-            font-size: 8vw; /* Scales with screen size */
+            font-size: 60px; /* Default size for desktop */
             margin: 0;
             font-family: 'Orbitron', sans-serif;
         }
 
         .description {
-            font-size: 5vw; /* Scales with screen size */
+            font-size: 20px; /* Default size for desktop */
             margin: 10px 0 20px;
         }
 
@@ -111,7 +111,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 4vw; /* Scales with screen size */
+            font-size: 16px; /* Default size for desktop */
             color: white;
             padding: 10px 15px;
             background: rgba(0, 0, 0, 0.6);
@@ -121,19 +121,23 @@
             text-align: center;
         }
 
-        /* Responsive Design */
+        /* Responsive Design for Mobile */
         @media (max-width: 768px) {
-            .content {
-                padding: 10px;
+            .title {
+                font-size: 40px; /* Smaller for mobile */
+            }
+
+            .description {
+                font-size: 16px;
             }
 
             .social-links a {
                 padding: 8px 15px;
-                font-size: 3vw;
+                font-size: 14px; /* Smaller text for buttons */
             }
 
             .music-player {
-                font-size: 5vw;
+                font-size: 14px; /* Slightly smaller player text */
             }
         }
     </style>
