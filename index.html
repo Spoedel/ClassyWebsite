@@ -66,24 +66,32 @@
             text-align: center;
             color: white;
             background: rgba(0, 0, 0, 0.6); /* Slight overlay for better readability */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .title {
-            font-size: 72px;
+            font-size: 8vw; /* Scales with screen size */
             margin: 0;
             font-family: 'Orbitron', sans-serif;
         }
 
         .description {
-            font-size: 24px;
+            font-size: 5vw; /* Scales with screen size */
             margin: 10px 0 20px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
 
         .social-links a {
             color: white;
             background: rgba(255, 255, 255, 0.1);
             padding: 12px 25px;
-            margin: 5px;
             text-decoration: none;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -103,40 +111,30 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 16px;
+            font-size: 4vw; /* Scales with screen size */
             color: white;
             padding: 10px 15px;
             background: rgba(0, 0, 0, 0.6);
             border-radius: 20px;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-        }
-
-        .music-player div {
-            font-weight: bold;
             text-align: center;
         }
 
-        /* View Counter */
-        .view-counter {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 8px 12px;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                padding: 10px;
+            }
 
-        .view-counter img {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
+            .social-links a {
+                padding: 8px 15px;
+                font-size: 3vw;
+            }
+
+            .music-player {
+                font-size: 5vw;
+            }
         }
     </style>
 </head>
@@ -148,13 +146,10 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        
         <video class="background" autoplay loop muted>
             <source src="background.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        
-        
         <div class="content">
             <h1 class="title">Bas</h1>
             <p class="description">Owner of /Christmas<br>MC IGN: Joziq</p>
@@ -163,19 +158,9 @@
                 <a href="https://discord.gg/Christmas" target="_blank">My Discord Server</a>
             </div>
         </div>
-        
-        
         <div class="music-player">
             <div>Now Playing: Juice WRLD - Summer is over</div>
         </div>
-
-        
-        <div class="view-counter">
-            <img src="eye.png" alt="Eye Icon">
-            <span id="view-count">0</span>
-        </div>
-        
-       
         <audio id="background-music" loop>
             <source src="summer-is-over.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -187,37 +172,19 @@
             const welcomeScreen = document.querySelector('.welcome-screen');
             const mainContent = document.querySelector('.main-content');
 
-            
+            // Hide welcome screen
             welcomeScreen.classList.add('hidden');
 
-            
+            // Show main content after fade-out
             setTimeout(() => {
                 welcomeScreen.style.display = 'none';
                 mainContent.style.display = 'block';
 
-                
+                // Play background music
                 const music = document.getElementById('background-music');
                 music.play().catch(error => console.log('Autoplay blocked:', error));
-            }, 500); 
-
-            
-            incrementViewCount();
+            }, 500); // Match fade-out duration
         }
-
-        function incrementViewCount() {
-            const countElement = document.getElementById('view-count');
-            const currentCount = parseInt(localStorage.getItem('viewCount') || '0', 10);
-            const newCount = currentCount + 1;
-            localStorage.setItem('viewCount', newCount);
-            countElement.textContent = newCount;
-        }
-
-        // Load view count on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const countElement = document.getElementById('view-count');
-            const storedCount = localStorage.getItem('viewCount') || '0';
-            countElement.textContent = storedCount;
-        });
     </script>
 </body>
 </html>
